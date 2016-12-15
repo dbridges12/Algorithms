@@ -49,14 +49,14 @@ function mergeSort(array) {
 
     var x = mergeSort(left);
     var y = mergeSort(right);
-    console.log('arr: ',array,x,y);
 
     return merge(x,y);
 
     //return merge(mergeSort(left), mergeSort(right));
 }
 
-var thisArr = [6,5,4,3,2,1];
+var thisArr = [3, 1, 5, 2, 7, 6, 4];
 
-console.log(mergeSort(thisArr));
-console.log(countInv(thisArr));
+console.log('Original Array: ' + thisArr);
+console.log('Sorted Array: ' + mergeSort(thisArr));
+console.log('Total Inversions: ' + countInv(thisArr));
