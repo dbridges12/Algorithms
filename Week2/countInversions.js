@@ -18,28 +18,32 @@ function countInv(arr) {
 }
 
 function merge(left, right) {
-    var result = [];
+    var result = [],
+        inversions = left[0] + right[0],
+        leftArr = left[1],
+        rightArr = right[1];
 
-    while(left.length || right.length) {
-        if(left.length && right.length) {
+    while(leftArr.length || rightArr.length) {
+        if(leftArr.length && rightArr.length) {
 
-            if(left[0] < right[0]) {
-                result.push(left.shift());
+            if(leftArr[0] < rightArr[0]) {
+                result.push(leftArr.shift());
             } else {
-                result.push(right.shift());
+                result.push(rightArr.shift());
+                inversions = inversions + leftArr.length;
             }
-        } else if (left.length) {
-            result.push(left.shift());
+        } else if (leftArr.length) {
+            result.push(leftArr.shift());
         } else {
-            result.push(right.shift());
+            result.push(rightArr.shift());
         }
     }
-    return result;
+    return [inversions,result];
 }
 
 function mergeSort(array) {
     if(array.length === 1) {
-        return array;
+        return [0,array];
     }
 
     var length = array.length,
@@ -52,11 +56,10 @@ function mergeSort(array) {
 
     return merge(x,y);
 
-    //return merge(mergeSort(left), mergeSort(right));
 }
 
-var thisArr = [3, 1, 5, 2, 7, 6, 4];
+var thisArr = [3, 1, 5, 2, 7, 6, 4, 3, 1, 5, 2, 7, 6, 4, 3, 1, 5, 2, 7, 6, 4];
 
 console.log('Original Array: ' + thisArr);
-console.log('Sorted Array: ' + mergeSort(thisArr));
-console.log('Total Inversions: ' + countInv(thisArr));
+console.log('Sorted Array: ' + mergeSort(thisArr)[0]);
+console.log('Total Brute Force Inversions: ' + countInv(thisArr));
